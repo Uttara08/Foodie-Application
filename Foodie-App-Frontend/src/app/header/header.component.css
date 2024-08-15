@@ -1,0 +1,61 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.search-icon {
+  cursor: pointer;
+  color: #007bff;
+  font-size: 24px;
+}
+
+.search-icon:hover {
+  color: #0056b3;
+}
+
+
+.login-btn {
+  border-color: #343429;
+  color: #fbfcd1;
+}
+
+.login-btn:hover {
+  background-color: #f3f5fc;
+  color: #fff;
+}
+
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #000000;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.brand-name {
+  margin-left: 8px;
+}
+
+.navbar-brand:hover {
+  color: #000000;
+
+}
+
+nav {
+  background-color: rgb(143, 203, 255)
+}

@@ -1,0 +1,21 @@
+.h1tag {
+    text-align: center;
+    color: #0f0e0e;
+    padding-top: 1%;
+    font-size: 25px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.img {
+    margin-left: 20px;
+
+}
+
+.container {
+    text-align: center;
+}
+.parent{
+    background-color: rgb(208, 251, 249);
+}

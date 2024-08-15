@@ -1,0 +1,37 @@
+<section class="vh-100" style="background-color: #ccf9fe;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-8">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="card-body p-4 p-lg-5 text-black">
+            <form class="container" [formGroup]="foodForm" (ngSubmit)="onSubmit()" class="text-center">
+              <h1>{{ isEditing ? 'Edit Food' : 'Add Food' }}</h1>
+              <div>
+                <mat-form-field *ngIf="isEditing" class="form-group">
+                  <mat-label for="itemName">Item Name</mat-label>
+                  <input matInput type="text" id="itemName" formControlName="itemName" readonly>
+                </mat-form-field>
+              </div>
+              <mat-form-field *ngIf="!isEditing" class="form-group">
+                <mat-label for="itemName">Item Name</mat-label>
+                <input matInput type="text" id="itemName" formControlName="itemName">
+              </mat-form-field>
+              <br>
+              <mat-form-field class="form-group">
+                <mat-label for="foodDescription">Food Description</mat-label>
+                <textarea matInput id="foodDescription" formControlName="foodDescription"></textarea>
+              </mat-form-field>
+              <br>
+              <mat-form-field appearance="fill" class="form-group">
+                <mat-label for="price">Price</mat-label>
+                <input matInput type="number" id="price" formControlName="price">
+              </mat-form-field>
+              <br>
+              <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update' : 'Add' }}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

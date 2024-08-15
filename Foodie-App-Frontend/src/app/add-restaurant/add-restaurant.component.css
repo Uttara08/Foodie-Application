@@ -1,0 +1,33 @@
+.form-container {
+    margin-left: 32%;
+    margin-right: 32%;
+    text-align: center;
+    background-color: #fbfbfb;
+    border-radius: 8px;
+    padding: 3%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.h1tag {
+    text-align: center;
+    color: #0f0e0e;
+    padding-top: 1%;
+    font-size: 25px;
+    margin-bottom: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.button {
+    margin-left: 2%;
+    margin-bottom: 3%;
+    width: 30%;
+}
+
+.parent {
+    background-size: cover;
+    background-color: #ccf9fe;
+    padding: 2%;
+}

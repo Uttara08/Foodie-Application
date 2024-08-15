@@ -1,0 +1,56 @@
+<div class="parent">
+  <div class="restaurant-card">
+
+    <h1 class="h1tag">{{displayRestaurant.name}}</h1>
+    <img class="restaurant-image" *ngIf="displayRestaurant.name"
+      [src]="'../../assets/Images-foodie/' + displayRestaurant.name + '.jpg'" alt="Restaurant Image" height="500px"
+      width="90%" />
+  </div>
+  <br>
+  <h1 class="h1tag">Best Dishes To Eat</h1>
+  <div class="grid-container">
+    <mat-grid-list cols="4" rowHeight="450px">
+      <mat-grid-tile *ngFor="let restaurant of displayRestaurant.foodList">
+        <mat-card class="dashboard-card" style="background-color: #efeded;">
+          <mat-card-header>
+            <mat-card-title>
+              {{restaurant.itemName}}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content" style="background-color: #efefef;">
+            <img src="../../assets/Images-foodie/{{restaurant.itemName}}.jpg" width="100px" height="30px">
+
+            <span class="text-center">Price : ₹{{restaurant.price}}</span>
+            <span class="text-center">{{restaurant.foodDescription}}</span>
+
+            <div class="mt-2">
+              <span class="text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </span>
+            </div>
+
+            <div class="btn-group mt-3">
+
+              <button class="btn btn-primary" data-toggle="tooltip" *ngIf="loginService.isAdmin"
+                routerLink="/edit/{{restaurant.itemName?.trimEnd()}}" data-placement="top" title="Edit">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-danger" data-toggle="tooltip" (click)="deleteFood(restaurant.itemName)"
+                *ngIf="loginService.isAdmin" data-placement="top" title="Delete">
+                <i class="fas fa-trash"></i>
+              </button>
+              <button class="btn btn-warning" data-toggle="tooltip" data-placement="top"
+                (click)="addToFavorites(restaurant)" *ngIf="loginService.isCustomer" title="Add to Favorites">
+                <i>Order</i>
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

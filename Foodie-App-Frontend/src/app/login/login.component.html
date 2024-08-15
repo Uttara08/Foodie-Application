@@ -1,0 +1,42 @@
+<section class="vh-100" style="background-color: #ccf9fe;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-8">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="card-body p-4 p-lg-5 text-black">
+
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="text-center">
+
+              <div class="d-flex align-items-center justify-content-center mb-3 pb-3">
+                <span class="h3 fw-bold mb-0"> LOGIN</span>
+              </div>
+
+              <mat-form-field class="form-outline mb-3">
+                <input matInput formControlName="emailId" id="form2Example17" placeholder=" " />
+                <mat-label>Email address</mat-label>
+                <mat-error *ngIf="userForm.get('emailId')?.hasError('required')">
+                  Enter a valid email address
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-outline mb-3">
+                <input matInput type="password" id="form2Example27" formControlName="password" placeholder=" " />
+                <mat-label>Password</mat-label>
+                <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+                  Password is required
+                </mat-error>
+              </mat-form-field>
+
+              <div class="pt-2 mb-4">
+                <button class="btn btn-dark btn-lg btn-block btn-hover" [disabled]="userForm.invalid"
+                  type="submit">Submit</button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

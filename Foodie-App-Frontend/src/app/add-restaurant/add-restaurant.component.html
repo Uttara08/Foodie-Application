@@ -1,0 +1,65 @@
+<div class="parent">
+  <div class="container">
+    <div class="form-container">
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div>
+          <h1 class="h1tag">Add Restaurant</h1>
+        </div>
+        <div>
+          <mat-form-field>
+            <label>Restaurant Name:</label>
+            <input matInput type="text" formControlName="name">
+            <mat-error *ngIf="userForm.get('name')?.hasError('required')">Name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <label>Restaurant Email ID:</label>
+            <input matInput type="text" formControlName="emailId">
+            <mat-error *ngIf="userForm.get('emailId')?.hasError('invalidEmail')">Minimum 3 characters must be present before symbol</mat-error>
+            <mat-error *ngIf="userForm.get('emailId')?.hasError('required')">Email is required</mat-error>           
+            <mat-error *ngIf="userForm.get('emailId')?.hasError('email')">Invalid email format</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <label>Password:</label>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="userForm.get('password')?.hasError('required')">Password is required</mat-error>
+            <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">Password must be at least 6
+              characters</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <label>Restaurant Address:</label>
+            <input matInput type="text" formControlName="address">
+            <mat-error *ngIf="userForm.get('address')?.hasError('required')">Address is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <label>Contact Number:</label>
+            <input matInput type="text" formControlName="phNo">
+            <mat-error *ngIf="userForm.get('phNo')?.hasError('firstDigit')">First digit must be between 7-9</mat-error>
+            <mat-error *ngIf="userForm.get('phNo')?.hasError('required')">Phone Number is required</mat-error>
+            <mat-error *ngIf="userForm.get('phNo')?.hasError('pattern')">Invalid phone number format</mat-error>
+          </mat-form-field>
+
+        </div>
+        
+          <div>
+            <button mat-raised-button class="button" color="primary" type="submit"
+              [disabled]="!userForm.valid">Submit</button>
+            <button mat-raised-button class="button" color="accent" type="reset">Reset</button>
+          </div>
+
+       
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="parent">
+    <h1 class="h1tag">My Orders</h1>
+
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Food Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of favorites">
+                    <td><div><img src="../../assets/Images-foodie/{{item.itemName}}.jpg" alt="" width="130px" height="100px"></div></td>
+                    <td>{{ item.itemName }}</td>
+                    <td>₹{{ item.price }}</td>
+                    <td>{{ item.foodDescription }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

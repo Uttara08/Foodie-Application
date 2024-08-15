@@ -1,0 +1,43 @@
+.vh-100 {
+  height: 100vh;
+  background-color: #ccf9fe;
+}
+
+.container {
+  padding: 5rem 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+}
+
+.card-body {
+  border-radius: 1rem;
+}
+
+.container form {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.mat-form-field {
+  margin-bottom: 1.5rem;
+}
+
+button {
+  margin-top: 1.5rem;
+}
+
+
+@media (max-width: 576px) {
+  .col-xl-8 {
+    max-width: 100%;
+  }
+}
