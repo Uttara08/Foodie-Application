@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { RestaurantService } from '../services/restaurant.service';
@@ -17,9 +17,8 @@ export class LoginComponent {
 
   ngOnInit() {
     this.userForm = this.fb.group({
-      emailId: [''],
-      password: [''],
-
+      emailId: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -35,17 +34,14 @@ export class LoginComponent {
 
           if (role == "Admin") {
             this.ls.isAdmin = true;
-            this.router.navigateByUrl("viewOneRestaurant")
-          }
-          else {
+            this.router.navigateByUrl("viewOneRestaurant");
+          } else {
             this.ls.isCustomer = true;
             this.router.navigateByUrl('home');
           }
-          this.showSnackbar('Login successful!!', 3000);
+          this.showSnackbar('Login successful!!', 5000);
 
-
-        }
-        else {
+        } else {
           console.error("Token not found in the response body:", response);
         }
       },
@@ -55,10 +51,17 @@ export class LoginComponent {
             'Customer with the same email ID already exists. Please use a different email ID.',
             5000
           );
+        } else {
+          // Display a notification for incorrect credentials
+          this.showSnackbar(
+            'Your credentials are wrong. Kindly enter a valid email and password.',
+            5000
+          );
         }
       }
     );
   }
+
   showSnackbar(message: string, duration: number, verticalPosition: 'top' | 'bottom' = 'top') {
     const config: MatSnackBarConfig = {
       duration,

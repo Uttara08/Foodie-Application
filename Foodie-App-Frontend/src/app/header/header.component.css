@@ -36,6 +36,11 @@
   background-color: #f3f5fc;
   color: #fff;
 }
+/* header.component.css */
+.welcome-message {
+  font-weight: bold;
+  margin-right: 15px;
+}
 
 
 .navbar-brand {

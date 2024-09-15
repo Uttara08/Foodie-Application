@@ -15,7 +15,12 @@ public class Customer {
     private String name;
     private String address;
 
+    private String phNo;
+    private String role;
 
+    private String favItem;
+    private List<Restaurant> RestaurantList;
+    private List<Food> favList;
 
     public Customer(String emailId, String password, String name, String address, String phNo, String favItem, List<Restaurant> restaurantList, List<Food> favList) {
         this.emailId = emailId;
@@ -24,12 +29,11 @@ public class Customer {
         this.address = address;
         this.phNo = phNo;
         this.role="Customer";
-
         this.favList = favList;
+
     }
 
-    private String phNo;
-    private String role;
+
 
     public String getRole() {
         return role;
@@ -47,9 +51,7 @@ public class Customer {
         RestaurantList = restaurantList;
     }
 
-    private String favItem;
-    private List<Restaurant> RestaurantList;
-    private List<Food> favList;
+
 
     public List<Food> getFavList() {
         return favList;

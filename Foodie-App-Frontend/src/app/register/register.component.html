@@ -1,41 +1,52 @@
 <div class="parent">
-
   <div class="container">
     <div class="form-container">
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div>
           <h1 class="h1tag">Registration Form</h1>
         </div>
+
+        <!-- Name Field -->
         <div>
           <mat-form-field>
             <label>Name:</label>
             <input matInput type="text" formControlName="name">
             <mat-error *ngIf="userForm.get('name')?.hasError('required')">Name is required</mat-error>
+            <mat-error *ngIf="userForm.get('name')?.hasError('noStartingSpace')">Name cannot start with a space</mat-error>
+            <mat-error *ngIf="userForm.get('name')?.hasError('alphabetAndSpaceOnly')">Name must contain only alphabetic characters and spaces</mat-error>
           </mat-form-field>
         </div>
-
-
+        
+        
+        
+        <!-- Email ID Field -->
         <div>
           <mat-form-field>
             <label>Email ID:</label>
             <input matInput type="text" formControlName="emailId">
-            <mat-error *ngIf="userForm.get('emailId')?.hasError('invalidEmail')">Minimum 3 characters must be present
-              before symbol</mat-error>
             <mat-error *ngIf="userForm.get('emailId')?.hasError('required')">Email is required</mat-error>
+            <mat-error *ngIf="userForm.get('emailId')?.hasError('invalidEmail')">Email must start with alphabetic characters</mat-error>
             <mat-error *ngIf="userForm.get('emailId')?.hasError('email')">Invalid email format</mat-error>
           </mat-form-field>
         </div>
 
-        <div>
-          <mat-form-field>
-            <label>Password:</label>
-            <input matInput type="password" formControlName="password">
-            <mat-error *ngIf="userForm.get('password')?.hasError('required')">Password is required</mat-error>
-            <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">Password must be at least 6
-              characters</mat-error>
-          </mat-form-field>
-        </div>
+       <!-- Password Field -->
+       <div>
+        <mat-form-field>
+          <label>Password:</label>
+          <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="userForm.get('password')?.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="userForm.get('password')?.hasError('noSpaces')">Password cannot contain spaces</mat-error>
+          <mat-error *ngIf="userForm.get('password')?.hasError('minLength')">Password must be at least 6 characters</mat-error>
+          <mat-error *ngIf="userForm.get('password')?.hasError('uppercase')">Password must contain at least one uppercase letter</mat-error>
+          <mat-error *ngIf="userForm.get('password')?.hasError('lowercase')">Password must contain at least one lowercase letter</mat-error>
+          <mat-error *ngIf="userForm.get('password')?.hasError('number')">Password must contain at least one number</mat-error>
+          <mat-error *ngIf="userForm.get('password')?.hasError('specialChar')">Password must contain at least one special character</mat-error>
+        </mat-form-field>
+      </div>
 
+
+        <!-- Address Field -->
         <div>
           <mat-form-field>
             <label>Address:</label>
@@ -44,21 +55,23 @@
           </mat-form-field>
         </div>
 
+        <!-- Phone Number Field -->
         <div>
           <mat-form-field>
             <label>Phone Number:</label>
             <input matInput type="text" formControlName="phNo">
-            <mat-error *ngIf="userForm.get('phNo')?.hasError('firstDigit')">First digit must be between 7-9</mat-error>
             <mat-error *ngIf="userForm.get('phNo')?.hasError('required')">Phone Number is required</mat-error>
             <mat-error *ngIf="userForm.get('phNo')?.hasError('pattern')">Invalid phone number format</mat-error>
+            <mat-error *ngIf="userForm.get('phNo')?.hasError('firstDigit')">First digit must be between 7-9</mat-error>
           </mat-form-field>
-          <div>
-            <button mat-raised-button color="primary" class="button" type="submit"
-              [disabled]="!userForm.valid">Submit</button>
-            <button mat-raised-button color="accent" class="button" type="reset">Reset</button>
-          </div>
-
         </div>
+
+        <!-- Submit and Reset Buttons -->
+        <div>
+          <button mat-raised-button color="primary" class="button" type="submit" [disabled]="!userForm.valid">Submit</button>
+          <button mat-raised-button color="accent" class="button" type="reset">Reset</button>
+        </div>
+
       </form>
     </div>
   </div>

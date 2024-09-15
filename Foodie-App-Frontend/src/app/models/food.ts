@@ -3,4 +3,5 @@ export type Food = {
     itemName?: string;
     foodDescription?: string;
     price?: number;
+    // isFavorite?: boolean;
 }

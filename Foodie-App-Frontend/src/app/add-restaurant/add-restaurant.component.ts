@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder,ValidatorFn, FormGroup, Validators ,ValidationErrors} from '@angular/forms';
 import { RestaurantService } from '../services/restaurant.service';
 import { Router } from '@angular/router';
 import { CanComponentDeactivate } from '../services/deactivate.guard';
@@ -20,15 +20,33 @@ export class AddRestaurantComponent implements CanComponentDeactivate {
 
   ngOnInit() {
     this.userForm = this.fb.group({
-      emailId: ['', [Validators.required, Validators.email, this.emailValidator]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      name: ['', [Validators.required, this.noStartingSpaceValidator(), this.alphabetAndSpaceValidator()]],
+      emailId: ['', [Validators.required, Validators.email, this.customEmailValidator]],
+      password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator]],
       role: ['Admin'],
-      name: ['', Validators.required],
+      
       address: ['', Validators.required],
       phNo: ['', [Validators.required, Validators.pattern(/^[7-9]\d{9}$/), this.phoneNumberValidator]],
     });
   }
-
+  noStartingSpaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value && value.trimStart().length !== value.length) {
+        return { noStartingSpace: true };
+      }
+      return null;
+    };
+  }
+  alphabetAndSpaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value && !/^[A-Za-z\s]+$/.test(value)) {
+        return { alphabetAndSpaceOnly: true };
+      }
+      return null;
+    };
+  }
   onSubmit() {
     this.rs.addRestaurant(this.userForm.value).subscribe(
       (data) => {
@@ -45,7 +63,22 @@ export class AddRestaurantComponent implements CanComponentDeactivate {
       }
     );
   }
+  customEmailValidator(control: AbstractControl): ValidationErrors | null {
+    const email = control.value;
+    if (email && email.indexOf('@') > 0) {
+      const localPart = email.split('@')[0];
+      const valid = /^[A-Za-z]+/.test(localPart);  // Check if it starts with alphabetic characters
+      if (!valid) {
+        return { invalidEmail: true };
+      }
+    }
+    return null;
+  }
 
+  alphabeticalValidator(control: AbstractControl): ValidationErrors | null {
+    const valid = /^[A-Za-z]+$/.test(control.value);
+    return valid ? null : { alphabetOnly: true };
+  }
   emailValidator(control: AbstractControl) {
     if (control.value && control.value.length < 13) {
       return { 'invalidEmail': true };
@@ -57,6 +90,40 @@ export class AddRestaurantComponent implements CanComponentDeactivate {
       return { 'firstDigit': true };
     }
     return null;
+  }passwordValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+
+    if (!value) {
+      return null;
+    }
+
+    const errors: ValidationErrors = {};
+
+    if (/\s/.test(value)) {
+      errors['noSpaces'] = true;
+    }
+
+    if (value.length < 6) {
+      errors['minLength'] = true;
+    }
+
+    if (!/[A-Z]/.test(value)) {
+      errors['uppercase'] = true;
+    }
+
+    if (!/[a-z]/.test(value)) {
+      errors['lowercase'] = true;
+    }
+
+    if (!/\d/.test(value)) {
+      errors['number'] = true;
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+      errors['specialChar'] = true;
+    }
+
+    return Object.keys(errors).length ? errors : null;
   }
 
   showSnackbar(message: string, duration: number, verticalPosition: 'top' | 'bottom' = 'top') {

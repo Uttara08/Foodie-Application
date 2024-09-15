@@ -16,6 +16,10 @@ public class Restaurant {
     private String name;
     private String phNo;
 
+    private String address;
+    private String role;
+    private List<Food> foodList;
+
     public Restaurant(String emailId, String password, String name, String phNo, String address, List<Food> foodList) {
         this.emailId = emailId;
         this.password = password;
@@ -27,9 +31,7 @@ public class Restaurant {
         this.foodList = foodList;
     }
 
-    private String address;
-    private String role;
-    private List<Food> foodList;
+
 
     public String getRole() {
         return role;

@@ -18,7 +18,7 @@
       </form>
       <ul class="navbar-nav ms-auto d-flex align-items-center mb-2 mb-lg-0">
         <li class="nav-item me-2">
-          <a class="btn btn-outline-light text-dark px-3 login-btn" *ngIf="!loginService.isLoggedIn"
+          <a class="btn btn-outline-light text-dark px-3 login-btn" *ngIf="loginService.isAdmin"
             routerLink="addRestaurant">Add restaurant</a>
         </li>
         <li class="nav-item me-2">
@@ -28,14 +28,14 @@
 
         <li class="nav-item">
           <a class="btn btn-outline-light text-dark px-3 login-btn" *ngIf="loginService.isCustomer"
-            routerLink="viewFav">View Orders </a>
+            routerLink="viewFav">Wishlist </a>
         </li>
         <li class="nav-item me-2">
           <a class="btn btn-outline-light text-dark px-3 login-btn" *ngIf="!loginService.isLoggedIn"
-            routerLink="login">Log in</a>
+            routerLink="login">Sign In</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-primary text-white px-3" *ngIf="!loginService.isLoggedIn" routerLink="register">Sign up</a>
+          <a class="btn btn-primary text-white px-3" *ngIf="!loginService.isLoggedIn" routerLink="register">Sign Up</a>
         </li>
         
         <li class="nav-item">
@@ -44,5 +44,6 @@
         </li>
       </ul>
     </div>
-  </div>
+  </div>
+
 </nav>

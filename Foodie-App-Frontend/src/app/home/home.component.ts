@@ -1,9 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
+
 import { Restaurant } from '../models/restaurant';
 import { RestaurantService } from '../services/restaurant.service';
-import { Food } from '../models/food';
+
 
 @Component({
   selector: 'app-home',

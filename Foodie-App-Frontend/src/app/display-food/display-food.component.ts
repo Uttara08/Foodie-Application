@@ -10,71 +10,69 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-display-food',
   templateUrl: './display-food.component.html',
-  styleUrl: './display-food.component.css'
+  styleUrls: ['./display-food.component.css'] // Corrected from styleUrl to styleUrls
 })
 export class DisplayFoodComponent implements OnInit {
-
-  constructor(private restaurantService: RestaurantService,
-    private activatedRoute: ActivatedRoute, private router: Router,
-    public loginService: LoginService, private foodService: FoodService,
-    private customerService: CustomerService,
-    private snackBar: MatSnackBar) { }
 
   displayRestaurant: Restaurant = {
     name: '',
     address: '',
     foodList: []
-  }
+  };
+
+  constructor(
+    private restaurantService: RestaurantService,
+    private activatedRoute: ActivatedRoute, 
+    private router: Router,
+    public loginService: LoginService, 
+    private foodService: FoodService,
+    private customerService: CustomerService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
-    let deleteData = sessionStorage.getItem("delete");
+    const deleteData = sessionStorage.getItem("delete");
     const itemName = sessionStorage.getItem('itemName') ?? "";
     const token = sessionStorage.getItem('token') ?? "";
-    let role = sessionStorage.getItem("role");
-    if (role == "Admin") {
-      if (deleteData == "true") {
-        if (itemName && token) {
-          if (confirm("Are you sure you want to delete this food?")) {
-            this.foodService.deleteFood(itemName, token).subscribe(
-              response => {
-                console.log('Food deleted successfully:', response);
-                sessionStorage.removeItem("itemName");
-                sessionStorage.removeItem("delete");
-                this.getOneRestaurantdetails();
+    const role = sessionStorage.getItem("role");
 
-              },
-              error => {
-                console.error('Error deleting food:', error);
-                sessionStorage.removeItem("itemName");
-                sessionStorage.removeItem("delete");
-                this.getOneRestaurantdetails();
-
-              }
-            );
+    if (role === "Admin" && deleteData === "true" && itemName && token) {
+      if (confirm("Are you sure you want to delete this food?")) {
+        this.foodService.deleteFood(itemName, token).subscribe(
+          response => {
+            console.log('Food deleted successfully:', response);
+            sessionStorage.removeItem("itemName");
+            sessionStorage.removeItem("delete");
+            this.getOneRestaurantdetails();
+          },
+          error => {
+            console.error('Error deleting food:', error);
+            sessionStorage.removeItem("itemName");
+            sessionStorage.removeItem("delete");
+            this.getOneRestaurantdetails();
           }
-        }
-
+        );
       }
-      else
-        this.getOneRestaurantdetails();
+    } else {
+      this.getOneRestaurantdetails();
+    }
 
-    }
-    else {
-      this.activatedRoute.paramMap.subscribe(params => {
-        const restId = params.get('name') ?? 0;
-        if (restId) {
-          this.getRestaurantdetails(restId);
-        } else {
-          console.error('Restaurant ID not provided in the route parameters.');
-        }
-      });
-    }
+    this.activatedRoute.paramMap.subscribe(params => {
+      const restId = params.get('name') ?? 0;
+      if (restId) {
+        this.getRestaurantdetails(restId);
+      } else {
+        console.error('Restaurant ID not provided in the route parameters.');
+      }
+    });
   }
+
   getRestaurantdetails(restId: any) {
     this.foodService.getAllFoods(restId).subscribe((data) => {
-      this.displayRestaurant.foodList = data
-    })
+      this.displayRestaurant.foodList = data;
+    });
   }
+
   getOneRestaurantdetails() {
     this.restaurantService.getRestaurantById().subscribe(
       (data) => {
@@ -85,7 +83,6 @@ export class DisplayFoodComponent implements OnInit {
       }
     );
   }
-
 
   deleteFood(itemName: any): void {
     sessionStorage.setItem("delete", "true");
@@ -101,7 +98,8 @@ export class DisplayFoodComponent implements OnInit {
     }
     this.customerService.addToFavorites(foodName, token).subscribe(
       response => {
-        console.log(`Food item added to view Cart `, response);
+        console.log('Food item added to view Cart', response);
+
         this.showSnackbar('Food item added to view Cart', 3000);
       },
       error => {
@@ -110,7 +108,6 @@ export class DisplayFoodComponent implements OnInit {
       }
     );
   }
-
 
   showSnackbar(message: string, duration: number, verticalPosition: 'top' | 'bottom' = 'top') {
     const config: MatSnackBarConfig = {
